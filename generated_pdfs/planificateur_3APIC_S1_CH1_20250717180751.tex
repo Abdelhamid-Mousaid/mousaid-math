@@ -1,0 +1,1052 @@
+\documentclass[11pt,a4paper,landscape]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\setotherlanguage{english}
+
+% --- Removed conflicting/redundant packages: inputenc, babel, fourier ---
+% --- Replaced specific .ttf files with standard font families ---
+\newfontfamily\fontf[Scale=1]{Amiri}
+\newfontfamily\fontsf[Scale=1]{Latin Modern Roman}
+\newfontfamily\myfont[Scale=1.3]{Latin Modern Roman}
+
+\usepackage[right=0.5cm, left=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{wrapfig}  % Package to wrap figures
+\usepackage{array}
+\usepackage{amsmath,amsfonts,amssymb,mathrsfs,amsthm}
+\usepackage{fancyhdr}
+
+\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+\usepackage{color}
+%\mathchardef\times="2202
+\definecolor{lightgray}{gray}{0.9}
+\definecolor{ocre}{RGB}{0,244,244} 
+
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs}
+\usepackage[font={bf}]{caption}
+\captionsetup[table]{box=colorbox,boxcolor=orange!20}
+\usepackage{float}
+\usepackage{esvect}
+\usepackage{tabularx}
+\usepackage{supertabular}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc,intersections,patterns,decorations.pathmorphing,arrows.meta,decorations.markings}
+\usetikzlibrary{arrows.meta}
+\usepackage{ulem}
+\usepackage{fontawesome5}
+\usepackage{textcomp}
+\usepackage{framed}
+\usepackage{multicol}
+\usepackage{varwidth}
+\usetikzlibrary{calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+\usepackage{tkz-tab}
+%\usepackage{xcolor}
+\RequirePackage[framemethod=default]{mdframed}
+
+\makeatletter
+\tcbuselibrary{skins,breakable,xparse}
+% \tcbset{%%
+% \tsave height/.code={%%
+% \tcbset{breakable}%%
+% \providecommand{#1}{2cm}%%
+% \def\tcb@split@start{%%
+% \tcb@breakat@init%%
+% \tcb@comp@h@page%%
+% \def\tcb@ch{%%
+% \tcbset{height=\tcb@h@page}%%
+% \tcbdimto#1{#1+\tcb@h@page-\tcb@natheight}%%
+% \immediate\write\@auxout{\string\gdef\string#1{#1}}%%
+% \tcb@ch%%
+% }%%
+% \tcb@drawcolorbox@standalone%%
+% }%%
+% }%%
+% }
+
+\makeatother
+\newcommand{\oij}{$\\left(\text{O};\\vv{i},\\vv{j},\\vv{k}\\right)$}
+\colorlet{darkred}{red!30!black}
+\newcommand{\red}[1]{\textcolor{darkred}{ #1}}
+\newcommand{\rr}{\mathbb{R}}
+\renewcommand{\baselinestretch}{1.2}
+\setlength{\arrayrulewidth}{1.25pt}
+
+
+%\usepackage[no-math]{fontspec}
+\usepackage{polyglossia}
+
+
+%*************************************************************+
+\colorlet{dlines}{orange!15!white}
+\colorlet{llines}{orange!015!white}
+\tikzset{
+\tdashed lines/.style={llines, very thin, densely dashed},
+\tstrong lines/.style={dlines, very thin},
+}
+%--------------------------------------------------------------
+\tcbset{
+\tenhanced,
+\tcolback=white,
+\tboxrule=0.1pt,
+\tcolframe=brown!10,
+\tfonttitle=\bfseries
+}
+\newcommand*{\arraycolor}[1]{\protect\leavevmode\color{#1}}
+\newcolumntype{A}{>{\columncolor{blue!50!white}}c}
+\newcolumntype{B}{>{\columncolor{LightGoldenrod}}c}
+\newcolumntype{C}{>{\columncolor{FireBrick!50}}c}
+\newcolumntype{D}{>{\columncolor{Gray!42}}c}
+%------------------------------------------------
+\newtcolorbox{box1}[2]{breakable,
+\tenhanced,
+\tleftrule=0pt,
+\ttoprule=0pt,
+\touter arc=0pt,
+\tarc=0pt,
+\tcolframe=#2,
+\tcolback=#2!3,title=#1,coltitle=white,
+\tattach boxed title to top right,
+\tboxed title style={
+\tcolback=#2,
+\touter arc=0pt,
+\tarc=0pt,
+\ttop=3pt,
+\tbottom=3pt,
+},
+\tfonttitle= \bfseries}
+\newtcolorbox{box2}[2]{enhanced,breakable,pad at break*=1mm,skin=enhancedlast jigsaw,
+\tattach boxed title to top right={xshift=4mm,yshift=-0.5mm},
+\tinterior style={top color=#2!3!white,bottom color=white},
+\tboxed title style={empty,arc=0pt,outer arc=0pt,boxrule=0pt},
+\tunderlay boxed title={
+\t\fill[#2] (title.north east) -- (title.north west)
+\t-- +(\tcboxedtitleheight-11.5mm,-\tcboxedtitleheight+1mm)
+\t-- ([xshift=-4mm,yshift=0.5mm]frame.north west) -- +(0mm,-1mm)
+\t-- (title.south east) -- cycle;
+\t\fill[#2!30!white!70!black] ([yshift=-0.5mm]frame.north west)
+\t-- +(-0.4,0) -- +(0,-0.3) -- cycle;
+\t\fill[#2!30!white!70!black] ([yshift=-0.5mm]frame.north east)
+\t-- +(0,-0.3) -- +(0.4,0) -- cycle; },
+\tcolframe=#2,
+\t,title=#1,fonttitle= ,rightrule=1mm} 
+\newtcolorbox{box3}[2]{enhanced,
+\tattach boxed title to top right={xshift=-0.3cm,yshift=-3mm},
+\tfonttitle= ,arc=10pt,sharp corners=uphill,
+\tcolbacktitle=#2!45!white,coltitle=#2!10!black,colframe=#2!50!black,drop lifted shadow,
+\tinterior style={top color=yellow!10!white,bottom color=#2!10!white},
+\tboxed title style={boxrule=0.75mm,colframe=#2!80!white,
+\tinterior style={top color=#2!10!white,bottom color=#2!10!white,
+\tmiddle color=#2!50!white},
+\tdrop fuzzy shadow},
+\ttitle=#1} 
+
+%---------------------
+\usepackage{chngcntr}
+%\usepackage[inline,shortlabels]{enumitem}
+\newcommand\tikzmark[1]{%
+\t\tikz[overlay,remember picture,baseline=-0.3ex] \coordinate (#1);}
+\newcommand\catat[3][0pt]{%
+\t{\tikzmark{e}#2
+\t\begin{tikzpicture}[remember picture, overlay]
+\t\path let \p1 = (e), \p2 = (current page marginpar area.west) in node[yshift=-#1,text width=\marginparwidth,align=left,anchor=north west,font=\normalfont\small\color{RoyalBlue},inner ysep=0pt] at (\x2,\y1) {\tikzmark{s}\RaggedRight#3};
+\t\draw[RoyalBlue] let \p1 = (e), \p2 = (s) in (e) |- ([xshift=-5pt,yshift=0.5ex]s.west);
+\t\end{tikzpicture}%
+\t}%
+}
+%-------------------------
+\definecolor{problemblue}{RGB}{100,134,158}
+\definecolor{idiomsgreen}{RGB}{0,162,0}
+\definecolor{exercisebgblue}{RGB}{192,232,252}
+\tcbset{highlight math style={enhanced,
+\tcolframe=red,colback=white,arc=0pt,boxrule=1pt}}
+\newcounter{mbo}
+\newtcolorbox[auto counter,number within=section,number freestyle={(\noexpand{\tcbcounter})}]{praproblem}{
+\tbefore title={\stepcounter{mbo}},
+\tbreakable,
+\tenhanced,
+\tcolback=white,
+\tboxrule=0pt,
+\tarc=0pt,
+\touter arc=1pt,
+\ttitle=Théorème~(\thembo),
+\tfonttitle=\bfseries\sffamily\large\strut,
+\tcoltitle=problemblue,
+\tcolbacktitle=problemblue,
+\ttitle style={
+\tright color=white,
+\tleft color=orange!80,
+\tmiddle color=orange!60
+},
+\toverlay={
+\t\draw[line width=1.5pt,problemblue] (title.north west) -- (title.north east);
+}
+}
+\newcounter{mtb}
+\newtcolorbox[auto counter,number within=section,number freestyle={(\noexpand{\tcbcounter})}]{tcbexercise}{
+\tbefore title={\stepcounter{mtb}},
+\tbreakable,
+\tenhanced,
+\tcolback=white,
+\tboxrule=0pt,
+\tarc=0pt,
+\touter arc=0pt,
+\ttitle=Exemple~(\themtb),
+\tfonttitle=\bfseries\sffamily\large\strut,
+\tcoltitle=problemblue,
+\tcolbacktitle=problemblue,
+\ttitle style={
+\tleft color=exercisebgblue,
+\tright color=white,
+\tmiddle color=exercisebgblue  
+},
+\toverlay={
+\t\draw[line width=1.5pt,problemblue] (frame.south west) -- (frame.south east);
+}
+}
+%---------------------
+%% this code comes from tColorbox Documentation Section 10.2.3 Page 153
+\newtcolorbox{BoxRafa}[2][]
+{enhanced,
+\tbefore skip=2mm,after skip=2mm,
+\tcolback=yellow!20!white,colframe=black!50,boxrule=0.2mm,
+\tattach boxed title to top left =
+\t{xshift=0.6cm,yshift*=1mm-\tcboxedtitleheight},
+\tvarwidth boxed title*=-1cm,
+\tboxed title style={frame code={
+\t\path[fill=green!30!black]
+\t([yshift=-1mm,xshift=-1mm]frame.north west)  
+\tarc[start angle=0,end angle=180,radius=1mm]
+\t([yshift=-1mm,xshift=1mm]frame.north east)
+\tarc[start angle=180,end angle=0,radius=1mm];
+\t\path[left color=green!60!black,right color = green!60!black,
+\tmiddle color = green!80!black]
+\t([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+\t[rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east) 
+\t-- (frame.south east) -- (frame.south west)
+\t-- ([xshift=-1mm,yshift=-1mm]frame.north west)
+\t[sharp corners]-- cycle;
+},interior engine=empty,
+},
+\tfonttitle=\bfseries\sffamily,
+\ttitle={#2},#1}
+%---------------------
+\usepackage{xpatch}
+
+\xpatchcmd{\proof}{\itshape}{\bfseries\itshape}{}{}
+
+\tcolorboxenvironment{proof}{
+\tblanker,
+\tbefore skip=\topsep,
+\tafter skip=\topsep,
+\tborderline east={01pt}{1pt}{red},
+\tbreakable,
+\tleft=12pt,
+\tright=12pt, % I'd avoid this
+}
+%-------------------------
+\begin{document}
+\t%\tikz[remember picture,overlay] {%
+\t%\draw [blue!10!black,line width=2mm]
+\t%\t(current page.south west)
+\t%\trectangle (current page.north east)}
+\t\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\t\tcbset{tab2/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize\sffamily,
+\tcolback=white!10!white,breakable,colframe=red!50!black,colbacktitle=Salmon!40!white,
+\tcoltitle=black,center title}}
+\t%===========================================
+\t\makeatletter
+\t\def\tcb@shadow@lifted#1#2#3#4{%
+\t\t\path[fill,rounded corners=\tcb@outer@arc,#4]
+\t\t([xshift=#1+#3,yshift=#2+#3]frame.south west)
+\t\t.. controls ([yshift=\dimexpr#3]frame.south) ..
+\t\t([xshift=-#1-#3,yshift=#2+#3]frame.south east)
+\t\t-- ([xshift=-#1-#3,yshift=#2-#3]frame.north east)
+\t\t-- ([xshift=#1+#3,yshift=#2-#3]frame.north west)
+\t\t-- cycle;
+\t}
+\t\tcbset{
+\t\tlifted shadow/.style args={#1#2#3#4}{shad@w app={%
+\t\t\begin{scope}[#4]%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr-4\dimexpr#3}{opacity=0.01}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr-3\dimexpr#3}{opacity=0.02}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr-2\dimexpr#3}{opacity=0.04}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr-#3}{opacity=0.07}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{0pt}{opacity=0.11}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr+#3}{opacity=0.11}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr+2\dimexpr#3}{opacity=0.07}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr+3\dimexpr#3}{opacity=0.04}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr+4\dimexpr#3}{opacity=0.02}%
+\t\t\t\tcb@shadow@lifted{#1}{#2}{\dimexpr+5\dimexpr#3}{opacity=0.01}%
+\t\t\t\end{scope}}},
+\t\tdrop lifted shadow/.style={lifted shadow={1.5mm}{-1.5mm}{0.12mm}{#1}},
+\t\tdrop lifted shadow/.default={black!50!white},
+\t\tdrop heavy lifted shadow/.style={lifted shadow={2mm}{-3mm}{0.16mm}{#1}},
+\t\tdrop heavy lifted shadow/.default={black!50!white},
+\t}
+\t\makeatother
+\t\newtcolorbox{boxone}{%
+\t\tenhanced,
+\t\tcolback=black!0,
+\t\tboxrule=0pt,
+\t\tsharp corners,
+\t\tdrop lifted shadow,
+\t\tframe hidden,
+\t\tfontupper=\bfseries,
+\t\tnotitle,
+\t\toverlay={%
+\t\t\draw[Circle-Circle, gray!70!black, line width=2pt](frame.north west)--(frame.south west); 
+\t\t\draw[Circle-Circle, gray!70!black, line width=2pt](frame.north east)--(frame.south east);}
+\t}
+\t\newtcolorbox{boxtwo}{%
+\t\tenhanced,
+\t\t%frame style={draw=none},
+\t\tcolback=gray!0,
+\t\tboxrule=0pt,
+\t\tsharp corners,
+\t\tdrop lifted shadow,
+\t\tframe hidden,
+\t\tnotitle,
+\t\toverlay={%
+\t\t\draw[{Triangle[right]}-{Triangle[left]}, , line width=2pt](frame.north west)--(frame.north east); 
+\t\t\draw[{Triangle[left]}-{Triangle[right]}, , line width=2pt](frame.south west)--(frame.south east);}
+\t}
+\t\newtcolorbox{boxthree}[2][]{%
+\t\tenhanced,
+\t\tbreakable,
+\t\tdrop fuzzy shadow southwest,
+\t\t%frame style={draw=none},
+\t\tcolback=white,
+\t\tcolbacktitle=orange!10,
+\t\tcolback=orange!05!white,
+\t\tboxrule=0pt,
+\t\tfonttitle=\bfseries,
+\t\tcoltitle=brown!30!black,
+\t\tsharp corners,
+\t\tframe hidden,
+\t\ttitle=#2,
+\t\toverlay={%
+\t\t\draw[thick, brown!70!black, double=orange, double distance=2pt] (frame.north west)--(frame.north east); 
+\t\t\draw[thick, brown!70!black, double=orange, double distance=2pt] (frame.south west)--(frame.south east);
+\t\t\fill[red!50!brown] ([shift={(3mm,.5mm)}]title.south west)--([shift={(-3mm,0mm)}]title.south east)--([shift={(3mm,-.5mm)}]title.south west)--cycle;}
+\t}
+\t%===========================================
+\t\textcolor{black}{\shadowbox{ plan N: 01 }}
+\t\hfill
+\t\textcolor{black}{\shadowbox{ \textbf{{\large CH1: Les Identités remarquables et puissances.}}}}
+\t\hfill  
+\t\textcolor{black}{\shadowbox{ Prof: ABDELHAMID MOUSAID }}
+\t\begin{boxone}
+\t\t\begin{multicols}{2} 
+\t\t\t\textcolor{black}{\myfont Lycée :  } {\sffamily  ASSOU OBASLAM - IKNIOUN}
+\t\t\t\\
+\t\t\t\textcolor{black}{\myfont Année Scolaire  :} {\sffamily  2023 - 2024}
+\t\t\t\\
+\t\t\t\textcolor{black}{\myfont Période :} {\sffamily 10 heures.}
+\t\t\t\\
+\t\t\t%\textcolor{black}{\myfont Le jour   :} {\sffamily 21 mars 2022.}
+\t\t\t\\
+\t\t\t\textcolor{white}{.}\qquad\qquad\qquad\textcolor{black}{\myfont La classe :} {\sffamily 3APIC.}
+\t\t\t\\
+\t\t\t\textcolor{white}{.}\qquad\qquad\qquad\textcolor{black}{ \myfont Unité : } {\sffamily Le calcule numérique.}
+\t\t\t%\\
+\t\t\t%\textcolor{black}{\myfont Chapitre-1 :} {\sffamily Identités remarquables et puissances.}
+\t\t\end{multicols}
+\t\end{boxone}
+\t
+\t\begin{boxtwo}
+\t\t%\includegraphics[width=\linewidth]{/app/backend/latex_templates/3APIC/1er_semestre/identites_remarquables_et_puissances.png}	
+\t\t\textcolor{black}{\myfont\bfseries Les pré-requis :} Les 4 opérations sur les nombres rationnels, Calcul littéral, Développer et factoriser et simplifier des expressions algébriques, Identités remarquables sur les rationnels, Théorème de Pythagore.
+\t\t\\
+\t\t\textcolor{black}{\myfont\bfseries Les outils utilisés  :} Livre scolaire, Les ressources, les instructions pédagogiques.
+\t\end{boxtwo}\newpage
+\renewcommand{\baselinestretch}{1.0}
+\t\begin{longtable}{|>{\centering\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{13.5cm}|>{\raggedright\arraybackslash}p{5cm}|}
+\t\t\hline
+\t\t\rowcolor{black!20!white}\sffamily\textbf{OBJECTIFS}  &\sffamily\centering \textbf{ACTIVITÉS}
+\t\t& \sffamily\centering \textbf{CONTENU DE COURS} & \sffamily \textbf{APPLICATIONS}\\
+\t\t\hline 
+\t\tDéveloppe et factorise une expression littérale\vspace*{4cm}
+\t\t
+\t\tDéveloppe et factorise une expression littérale
+\t\t
+\t\t
+\t\t& \colorbox{yellow!50!white}{\uline{\sffamily \textbf{Activité-1 :} }}\par%\bigskip
+\t\t\begin{enumerate}
+\t\t\t\item Développé et réduis :
+\t\t\t
+\t\t\t(i) $x(2x+1)$
+\t\t\t
+\t\t\t(ii) $5x^2(x+7)$ 
+\t\t\t
+\t\t\t(ii) $a(c+d)+b(c+d)$
+\t\t\t
+\t\t\t\item Factoriser :
+\t\t\t
+\t\t\t(i) $15b - 15c$
+\t\t\t
+\t\t\t(ii) $10a + 5c$ 
+\t\t\t
+\t\t\t(iii) $a(c+d)+b(c+d)$
+\t\t\t
+\t\t\t\end{enumerate}
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Activité-2 :} }}\par%\bigskip
+\t\tABCD est un rectangle
+\t\t%\includegraphics[width=5cm]{/app/backend/latex_templates/3APIC/1er_semestre/z.png}
+\t\t
+\t\tCalculer de 2 méthodes l'aire du rectangle ABCD et déduire que :
+\t\t\[ (a + b)(c + d) = ac + ad + bc + bd \]
+\t\t& 
+\t\t%\includegraphics[width=\linewidth]{1.png}	
+\t\t\textcolor{Red}{\uline{\sffamily \textbf{I. Développement et Factorisation :} }}\par
+\t\t\textcolor{Green}{\uline{\sffamily \textbf{1- Définition:} }}\par
+\t\t\begin{BoxRafa}[colbacktitle = green]{Définition}
+\t\t\t\textbf{Développer} un produit signifie le transformer en une \textbf{somme algébrique}
+\t\t\t
+\t\t\t\textbf{Factoriser} une somme signifie le transformer en un  \textbf{produit algébrique}.
+\t\t\end{BoxRafa}
+\t\t\textcolor{Green}{\uline{\sffamily \textbf{2- Propriétés:} }}\par
+\t\t\begin{BoxRafa}[colbacktitle = green]{Propriété-1}
+\t\t\t$a$, $b$ et $k$ sont des nombres rationnels. On a:\vspace*{.5cm}
+\t\t\t
+\t\t\t\tcbhighmath[boxrule=0.3pt,colframe=red,drop fuzzy shadow=red]{$ k(a + b) = ka + kb $} \qquad ,\qquad \tcbhighmath[boxrule=0.3pt,colframe=red,drop fuzzy shadow=red]{$ k(a - b) = ka - kb $ }
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples-1:}
+\t\t\tDéveloppement des expressions:
+\t\t\t
+\t\t\t$ 3(5a+7) = 3\times5a + 3\times7 = 15a + 21 $
+\t\t\t
+\t\t\t$ 2x(3x+2) = 2x\times3x + 2x\times2 = 6x^2 + 4x $
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{Propriété-2}
+\t\t\t$a$, $b$, $c$, $d$ sont des nombres rationnels. On a:\vspace*{.5cm}
+\t\t\t
+\t\t\t\qquad \tcbhighmath[boxrule=0.3pt,colframe=red,drop fuzzy shadow=red]{$ (a + b)(c + d) = ac + ad + bc + bd $ }
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples-2:}
+\t\t\tDéveloppement des expressions :
+\t\t\t
+\t\t\t$ (2x - 1)(x - 2) = 2x\times x - 2x\times2 -1\times x -1\times(-2) = 2x^2 - 4x - x + 2 = 2x^2-5x+2 $
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t& \colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-1:} }}\par
+\t\tDévelopper puis simplifier les expressions suivantes :
+\t\t$\begin{aligned}
+\t\t\t&a=2(1-2x)+3(x-1) \\
+\t\t\t&b=(2x^2-6)(x^2+4) \\
+\t\t\t&c=7x(3x-5)+(3x-5)(x-1) \\
+\t\t\t&d=(8x^3-2x+1)(x+3) \\
+\t\t\t&e=(x+y+z)(x+y-z)
+\t\t\end{aligned}$
+\t\t\\
+\t\t\hline
+\t\tFactoriser des expressions avec un facteur commun\t&\t&
+\t\t\textcolor{Red}{\uline{\sffamily \textbf{II. Factorisation:} }}\par
+\t\t\begin{BoxRafa}[colbacktitle = green]{Définition}
+\t\t\t\textbf{Factoriser} une somme signifie la transformer en \textbf{produit}.
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{Règle}
+\t\t\t$a$, $b$ et $k$ sont des nombres rationnels. On a:%\vspace*{.5cm}
+\t\t\t
+\t\t\t\tcbhighmath[boxrule=0.3pt,colframe=red,drop fuzzy shadow=red]{$ ka + kb = k(a + b) $} \qquad ,\qquad \tcbhighmath[boxrule=0.3pt,colframe=red,drop fuzzy shadow=red]{$ ka - kb = k(a - b) $ }
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples-1:}
+\t\t\tFactorisation des expressions:
+\t\t\t
+\t\t\t$\begin{aligned}
+\t\t\t\t&4a^{2}+3a=4\times a\times a+3\times a=a(4a+3)\\
+\t\t\t\t&(x+7)(5-4x)-2(5-4x)=(5-4x)\times(x+7-2)=(5-4x)(x+5)\\
+\t\t\t\t&(x+3)^{2}+(x+4)(x+3)=(x+3)(x+3+x+4)=(x+3)(2x+7)
+\t\t\t\end{aligned}$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t& \colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-2:} }}\par
+\t\tFactoriser les expressions:
+\t\t$\begin{aligned}
+\t\t\t&\text{25x-15} \\
+\t\t\t&\text{5x-3} \\
+\t\t\t&(3x+1)^{2}-(3x+1)(2x+5) \\
+\t\t\t&7x(2x-9)-11(9-2x) \\
+\t\t\t&6x^{2}+12x+6 \\
+\t\t\t&xy-x-y+1
+\t\t\end{aligned}$
+\t\t\t\\
+\t\t\hline
+\t\t
+\t\tConnaitre les identités remarquables &\t
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Activité-3 :} }}\par%\bigskip
+\t\t
+\t\t
+\t\t1) Calculer l'aire du carre $MNPQ$ de deux façons différentes et déduire que : $\left(a+b\right)^2 = a^2+2ab+b^2$
+\t\t
+\t\t2) Déduire que : $(a-b)^2=a^2-2ab+b^2$
+\t\t
+\t\t(On remarque que : $a-b =a+(-b)$)
+\t\t&	
+\t\t\textcolor{Red}{\uline{\sffamily \textbf{III. Identités remarquables:} }}\par
+\t\t\textcolor{Green}{\uline{\sffamily \textbf{1- Carré d\'une somme:} }}\par
+\t\t\begin{BoxRafa}[colbacktitle = green]{Propriété}
+\t\t\t$a$ et $b$ sont des nombres rationnels. On a:%\vspace*{.5cm}
+\t\t\t
+\t\t\t\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]      (maintopic)                              {$\left(a+b\right)^2$};
+\t\t\t\tnode[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\tnode[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples-1:}
+\t\t\t
+\t\t\t$\begin{aligned}
+\t\t\t\t&(2\mathrm{x}+3)^2=(2\mathrm{x})^2+2\times2\mathrm{x}\times3+3^2=4\mathrm{x}^2+12\mathrm{x}+9 \\
+\t\t\t\t&16\mathrm{x}^2+8\mathrm{x}+1=(4\mathrm{x}+1)^2 \\
+\t\t\t\t&25\mathrm{x}^2+20\mathrm{x}+4=(5\mathrm{x}+2)^2
+\t\t\t\end{aligned}$
+\t\t\t
+\t\t\end{BoxRafa}&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-3:}}}\par
+\t\t1) Développer puis simplifier les expressions suivantes :
+\t\t
+\t\t$\begin{aligned}
+\t\t\t&A=\left(9x+8\right)^2 \\ &B=\left(6+5x\right)^2 
+\t\t\end{aligned}$
+\t\t
+\t\t2) Factoriser :
+\t\t$\begin{aligned}
+\t\t\t&\mathbf{C}=x^2+8x+16\\
+\t\t\t&\text{D=49}x^2+42x+9+\mathrm{x}(7x+3)
+\t\t\end{aligned}$
+\t\t
+\t\t3) On considère $F = (2x + 3)^2 + (2x + 3)( x- 1)$.
+\t\t
+\t\ta. Développer et réduire $F$.
+\t\t
+\t\tb. Factoriser $F$.
+\t\t
+\t\tc. Calculer $F$ Pour $x=-\dfrac{2}{3}$ .
+\t\t
+\t\t\\
+\t\t\hline
+\t\tConnaitre les identités remarquables
+\t\t&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Activité-4 :} }}\par%\bigskip
+\t\t$a$ et $b$ deux nombres réels
+\t\t
+\t\tDévelopper et réduire : $\left( a-b\right) \left( a+b\right) $
+\t\t
+\t\t&
+\t\t\textcolor{Green}{\uline{\sffamily \textbf{2- Carré d\'une différence:} }}\par
+\t\t\begin{BoxRafa}[colbacktitle = green]{Propriété}
+\t\t\t$a$ et $b$ sont des nombres rationnels. On a:%\vspace*{.5cm}
+\t\t\t
+\t\t\t\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]      (maintopic)                              {$\left(a-b\right)^2$};
+\t\t\t\tnode[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\tnode[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2-2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples-1:}
+\t\t\t
+\t\t\t$\begin{aligned}
+\t\t\t\t&(2x-3)^{2}=(2x)^{2}-2\times2x\times3+3^{2}=4x^{2}-12x+9 \\
+\t\t\t\t&99^{2}=(100-1)^{2}=100^{2}-2\times100\times1+1^{2}=1000-200+1=9801 \\
+\t\t\t\t&16x^{2}-8x+1=(4x-1)^{2}
+\t\t\t\end{aligned}$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\textcolor{Green}{\uline{\sffamily \textbf{3- Carré d\'une différence:} }}\par
+\t\t\begin{BoxRafa}[colbacktitle = green]{Propriété}
+\t\t\t$a$ et $b$ sont des nombres rationnels. On a:%\vspace*{.5cm}
+\t\t\t
+\t\t\t\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]      (maintopic)                              {$\left(a+b\right)\left(a-b\right)$};
+\t\t\t\tnode[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\tnode[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2-b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples-1:}
+\t\t\t
+\t\t\t$\begin{aligned}
+\t\t\t\t&(2x+3)(2x-3)=(2x)^{2}-3^{2}=4x^{2}-9 \\
+\t\t\t\t&99\times101=(100+1)(100-1)=100^{2}-1^{2}=10000-1=9999 \\
+\t\t\t\t&16x^{2}-9=(4x+3)(4x-3) \\
+\t\t\t\t&\left(\sqrt{11}+\sqrt{7}\right)\left(\sqrt{11}-\sqrt{7}\right)=\sqrt{11}^{2}-\sqrt{7}^{2}=11-7=4
+\t\t\t\end{aligned}$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-4:}}}\par
+\t\t1) Développer puis simplifier les expressions suivantes :
+\t\t$$\begin{aligned}
+\t\t\t&X=\left(\frac{x}{2}-2\right)^{2} \quad Y=\left(\frac{2}{3}x-\frac{3}{5}\right)^{2}
+\t\t\end{aligned}$$
+\t\t2) Factoriser :
+\t\t
+\t\t$$\begin{aligned}
+\t\t\t&Z=9x^{2}-24x+16\\
+\t\t\t&W=25x^{2}+9-30x
+\t\t\end{aligned}$$
+\t\t
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-5:}}}\par
+\t\t1)\tDévelopper $A(x) = (2x + 1) (2x -1)$.
+\t\t
+\t\t2)\tCalculer $A(x)$ pour $x =\sqrt{5}$
+\t\t
+\t\t3)\tFactoriser $B(x)=9x^2-16$
+\t\t
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-6:}}}\par
+\t\tCalculer mentalement : $78\times82 \quad ; \quad592-61^2$
+\t\t
+\t\t\\
+\t\t\hline
+\t\t&\t
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Activité-5 :} }}\par%\bigskip
+\t\t
+\t\t1) Calculer les puissances suivantes: 
+\t\t$$\begin{aligned}
+\t\t\t&\left(\frac{2}{3}\right)^{3}\quad;\quad\left(-5\right)^{4}\quad;\left(\frac{2}{3}\right)^{1}\\
+\t\t\t&\left(-54.7\right)^{0}\quad;\quad1^{12}\quad;\quad0^{12}\\
+\t\t\t&\left(-1\right)^{4}\ ;\ \left(-1\right)^{7}\ ;\-1^{4}\ ;\ -1^{7}
+\t\t\end{aligned}$$
+\t\t
+\t\t2) Calculer les puissances suivantes:
+\t\t
+\t\t$5^{- 2}$ ; $1^{- 12}$ ; $10^{- 3}$
+\t\t
+\t\t$\left ( \frac 23\right ) ^{- 3}$ ; $\left ( - 5\right ) ^4$ $; \left ( \frac 23\right ) ^{- 1}$
+\t\t&	
+\t\t\textcolor{Red}{\uline{\sffamily \textbf{IV. Puissance d’un nombre réel} }}\par
+\t\t%\textcolor{Green}{\uline{\sffamily \textbf{1- Carré d\'une somme:} }}\par
+\t\t\begin{BoxRafa}[colbacktitle = green]{Définition:}
+\t\t\tSoit $a$ un nombre quelconque et $m$ un entier naturel non nul. On note   $a^m$ le nombre défini par : %\vspace*{.5cm}
+\t\t\t
+\t\t\t\hspace*{3cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$a^m=\underbrace{a\times a\times\cdots\times a}_{m\ fois}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\vspace{-.3cm}
+\t\t\t\begin{itemize}
+\t\t\t\t\item[$\blacktriangleright$]  Le nombre $a^m$ est le produit du nombre $a$ par lui-même $m$ fois.
+\t\t\t\t\item[$\blacktriangleright$]  Le nombre $a^m$ se lit "\textbf{a puissance m}" ou "\textbf{a exposant m}".
+\t\t\t\t\item[$\blacktriangleright$]  Par convention on admet que $a^0=1$
+\t\t\t\end{itemize}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Remarques:}
+\t\t\t
+\t\t\t\begin{itemize}
+\t\t\t\t\item[$\blacktriangleright$]  Le nombre $\mathbf{a^{2}}$ se lit aussi "\textbf{a au carré}" ; et le nombre $\mathbf{a^{3}}$ se lit aussi "\textbf{a au cube}".
+\t\t\t\t\item[$\blacktriangleright$]  On a toujours $\mathbf{a^{1}=a}$ (donc si un nombre est écrit sans puissance, on considère qu’il est à la puissance 1).
+\t\t\t\t\item[$\blacktriangleright$]  $a^{-n}$ est \textbf{l’inverse} de $a^{n}$
+\t\t\t\end{itemize}
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t
+\t\t\t\begin{itemize}
+\t\t\t\t\item[$\blacktriangleright$]  $2^{3}=2\times2\times2$.
+\t\t\t\t\item[$\blacktriangleright$]  On a $3^7=\underbrace{3\times3\times3\times3\times3\times3\times3}_{7facteurs}$.
+\t\t\t\t\item[$\blacktriangleright$]  On a aussi $5\times5\times5\times5\times5\times5\times5\times5\times5\times5=5^{10}$ (le nombre de 5 qui se multiplient est 10).
+\t\t\t\end{itemize}
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{MISE EN GARDE:}
+\t\t\t
+\t\t\t$\blacktriangleright$ Il ne faudra pas confondre le nombre $\mathbf{a^{m}}$ avec $\mathbf{a\times m}$
+\t\t\t
+\t\t\t$\blacktriangleright$ Par exemple $2^{3}=2\times2\times2=8$ ; alors que $2\times3=6$ (On voit bien que les résultats sont différents).
+\t\t\t
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-7:}}}\par
+\t\tCalculer les puissances suivantes :
+\t\t
+\t\t$\begin{aligned}
+\t\t\t&a=\left(-4\right)^{4}\quad b=\left(3\sqrt{2}\right)^{2} \\
+\t\t\t&c=\left(-\sqrt{2}\right)^{3}d=\left(\sqrt{2}\right)^{4} \\
+\t\t\t&e=\left({\frac{-4}{5}}\right)^{4}\quad f=\left({\frac{-4}{5}}\right)^{-1} \\
+\t\t\t&j=(2^{2}+3^{-2})^{-1} \\
+\t\t\t&h=\left[((\frac{4}{\sqrt{5}})^{-1}\times(\frac{-1}{2})^{2})^{-2}\right]
+\t\t\end{aligned}$
+\t\t\\
+\t\t\hline
+\t\t&\t
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Activité-6 :} }}\par%\bigskip
+\t\t
+\t\tSimplifier les expressions suivantes : 
+\t\t
+\t\t$\begin{aligned}
+\t\t\t&A=\left(\sqrt{2}\right)^{3}\times\left(\sqrt{2}\right)^{5}\times\left(\sqrt{2}\right) \\
+\t\t\t&B=\left(\sqrt{3}\right)^{-3}\times\left(\sqrt{3}\right)^{5} \\
+\t\t\t&C=\left(\sqrt{3}\right)^{2}\times5^{2} \\
+\t\t\t&D=\left(\left(\sqrt{3}\right)^{2}\right)^{3} \\
+\t\t\t&E=\frac{\left(\sqrt{3}\right)^{5}}{\left(\sqrt{3}\right)^{3}}
+\t\t\end{aligned}$
+\t\t&	
+\t\t\textcolor{Red}{\uline{\sffamily \textbf{V. Propriétés des puissances} }}\par
+\t\t%\textcolor{Green}{\uline{\sffamily \textbf{1- Carré d\'une somme:} }}\par
+\t\t{Les puissances ont des propriétés spécifiques permettant des calculs rapides.}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$1:(Produit De Deux Puissances)}
+\t\t\t\hspace*{2cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$\underbrace{\qquad a^m\times a^p\qquad}_{\text{C\'est le même nombre}}=\underbrace{\quad\qquad a^{m+p}\quad\qquad}_{\text{On additionne les puissances}}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\vspace{-.1cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t
+\t\t\t\textbf{Calculons les nombres $x=\frac{5^8}{5^6}$ et $y=\frac{3^{14}}{3^8}$ en donnant les résultats sous forme de puissances.}
+\t\t\t
+\t\t\tOn applique directement la règle qui nous donne : $x=3^{4}\times3^{2}=\underbrace{\qquad\qquad 3^{4+2}\qquad\qquad}_{\text{On additionne les puissances}}=3^{6}$ et de même $y=7^3\times7^2=7^{3+2}=7^5$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$2:(Quotient De Deux Puissances)}
+\t\t\t\hspace*{1.5cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$\underbrace{\qquad\qquad\frac{a^m}{a^p}\qquad\qquad}_{\text{C\'est le même nombre }a}=\underbrace{\qquad\qquad a^{m-p}\qquad\qquad}_{\text{On soustrait les puissances}}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\vspace{-.1cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t\textbf{Calculons les nombres $x=3^4\times3^2$ et $y=7^{3}\times7^{2}$ en donnant les résultats sous forme de puissances.}
+\t\t\t
+\t\t\tLa règle nous donne directement: $x=\frac{5^{8}}{5^{6}}=\underbrace{\quad\qquad5^{8-6}\quad\qquad}_{\text{On soustrait les puissances}}=5^{2}$ 
+\t\t\t
+\t\t\tEt de même $y=\frac{3^{14}}{3^8}=3^{14-8}=3^6$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$3:(Puissance D’une Puissance)}
+\t\t\t\hspace*{1.5cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$\underbrace{\qquad\qquad\qquad\left(a^m\right)^p\qquad\qquad\qquad}_{\text{On éléve une puissance à une autre puissance}}=\underbrace{\quad\qquad a^{m\times p}\qquad\quad}_{\text{On multiplie les puissances}}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\vspace{-.1cm}
+\t\t\end{BoxRafa}
+\t
+\t\t&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-8:}}}\par
+\t\tSimplifier les expressions suivantes :
+\t\t
+\t\t$\begin{aligned}&\left(\sqrt{7}\right)^{-13}\times\left(\sqrt{7}\right)^{65}\\&\left(\sqrt{3}\right)^{6}\times\left(\sqrt{3}\right)^{-5}\times\left(\sqrt{3}\right)\end{aligned}$
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-9:}}}\par
+\t\tSimplifier les expressions suivantes :
+\t\t
+\t\t$\begin{aligned}
+\t\t\t&a= (-4)^{3}\times(-4)^{12} \\
+\t\t\t&b=5^{6}\times(\sqrt{2})^{6}  \\
+\t\t\t&c= \frac{(-\sqrt{2})^{3}}{(-\sqrt{2})^{-8}} \\
+\t\t\t&d=\left(\sqrt{2}^{5}\right)^{-2}  \\
+\t\t\t&e= 5^{-3}\times3\times(5^{2})^{7}\times9^{5}  \\
+\t\t\t&f= \frac{(-21)^{3}\times5}{35^{3}\times3}  \\
+\t\t\t&j= \frac{\mathrm{a^{2}b(a^{-1}\times b^{2})^{-3}}}{\mathrm{a(a^{2}\times b)^{5}(b^{2})^{-1}}} 
+\t\t\end{aligned}$
+\t\t\\
+\t\t\hline
+\t\t&\t
+\t\t
+\t\t&	
+\t\t\vspace{.01cm}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t
+\t\t\t\textbf{Calculons les nombres $x=\left(2^{3}\right)^{4}$ et $y=\left(5^{2}\right)^{3}$ en donnant les résultats sous forme de puissances.}
+\t\t\t
+\t\t\tOn applique directement la règle qui nous donne : $x=\left(2^3\right)^4=\underbrace{\qquad\quad2^{3\times4}\qquad\quad}_{\textit{On multiplie les puissances}}=2^{12}$ et de même $y=\left(5^2\right)^3=5^{2\times3}=5^6$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$4:(Puissance D\'un Produit)}
+\t\t\t\hspace*{1.5cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$\underbrace{\qquad\qquad(a\times b)^m\qquad\qquad}_{\text{On éléve un produit à une puissance}}=\underbrace{\qquad a^m\times b^m\qquad}_{\text{On distribue les puissances}}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\vspace{-.1cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t\textbf{On peut écrire.}
+\t\t\t
+\t\t\t$6^{4}=\underbrace{\quad\left(2\times3\right)^{4}\quad}_{\text{car } 6=2\times3}=\underbrace{\qquad2^{4}\times3^{4}\qquad}_{\text{En appliquant la règle}}$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$5:(Puissance D\'un Quotient)}
+\t\t\t\hspace*{1.5cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$\underbrace{\qquad\qquad\left(\frac ab\right)^m\qquad\qquad}_{\text{On élève un quotient à une puissance}}=\underbrace{\qquad\qquad\frac{a^m}{b^m}\qquad\qquad}_{\text{On distribue les puissances}}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\vspace{-.1cm}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t\textbf{On peut écrire.}
+\t\t\t
+\t\t\t$\left(\frac23\right)^5=\underbrace{\quad\qquad\frac{2^5}{3^5}\quad\qquad}_{\text{En appliquant la règle}}$
+\t\t\t
+\t\t\end{BoxRafa}
+\t\t&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-10:}}}\par
+\t\t1- Déterminer l’entier $n$ tel que:
+\t\t
+\t\t$3^{2n+8}\times9^n=81$
+\t\t
+\t\t2-calculer mentalement :
+\t\t
+\t\t$a{=}4^{245}{\times}(3\sqrt{341,5})^0{\times}(0,25)^{245}$
+\t\t\\
+\t\t\hline
+\t\t&\t
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Activité-7 :} }}\par%\bigskip
+\t\t
+\t\t1- Calculer les puissances suivantes:
+\t\t
+\t\t$\begin{array}{c}10^5\qquad;\qquad10^4\\10^{-2}\qquad;\qquad10^{-3}\\10^n\qquad;\qquad10^{-n}\end{array}$
+\t\t
+\t\t2-Écrire les nombres suivants sous forme de $a\times10^n$ tel que $n$ est un entier naturel et $a$ est un nombre décimal tel que $1\leq a<10$: 
+\t\t
+\t\t$\begin{aligned}
+\t\t\t&A=200000\\
+\t\t\t&B=25000000\\
+\t\t\t&C=0.00003\\
+\t\t\t&D=0.00043
+\t\t\end{aligned}$
+\t\t&	
+\t\t\textcolor{Red}{\uline{\sffamily \textbf{VI. Les puissances de 10 et écriture scientifique d’un nombre décimal} }}\par
+\t\t\textcolor{Green}{\uline{\sffamily \textbf{1- Propriétés des puissances de 10:} }}\par
+\t\tLes puissances de 10 possèdent des propriétés particulières que nous récapitulons dans le tableau ci-dessous. Soit $m$ un entier naturel non nul
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$1:(Écriture Décimale De $10^m$)}
+\t\t\t\hspace*{4cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$10^m=1\underbrace{000\cdots0}_{m\ \text{zéros}}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\vspace{-.1cm}
+\t\t\t
+\t\t\t\uline{\sffamily \textbf{NOTE}}: 
+\t\t\tCette règle permet de calculer instantanément le nombre $10^m$.\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t
+\t\t\t$10^4=1\underbrace{0000}_{4\text{ zéros}}\quad ;\quad 10^5=1\underbrace{00000}_{5\text{ zéros}}\quad ;\quad 10^6=1\underbrace{000000}_{6\text{ zéros}}$
+\t\t\t\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$2:(Écriture Décimale De $10^{-m}$)}
+\t\t\t\hspace*{1cm}\begin{tikzpicture}[
+\t\t\t\troundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+\t\t\t\tsquarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+\t\t\t]
+\t\t\t%Nodes
+\t\t\t\tnode[squarednode]\t(maintopic)\t{$10^{-m}=\frac{1}{10^{m}}=0,\underbrace{000\cdots01}_{m\text{ chiffres}}$};
+\t\t\t\t%\node[roundnode]        (uppercircle)       [right=of maintopic] {=};
+\t\t\t\t%\node[squarednode]      (rightsquare)       [right=of uppercircle] {$a^2+2ab+b^2$};
+\t\t\t\t%\node[roundnode]        (lowercircle)       [below=of maintopic] {4};
+\t\t\t\t
+\t\t\t%Lines
+\t\t\t\t%\draw[->] (uppercircle.south) -- (maintopic.north);
+\t\t\t\t%\draw[->] (maintopic.north) .. controls +(up:7mm) and +(right:0mm) .. (rightsquare.north);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:0mm) .. (maintopic.south);
+\t\t\t\t%\draw[->] (rightsquare.south) .. controls +(down:7mm) and +(right:7mm) .. (lowercircle.east);
+\t\t\t\end{tikzpicture}\textbf{(Il y a \underline{au total} m zéros avant le 1)}
+\t\t\t
+\t\t\t\uline{\sffamily \textbf{NOTE}}: 
+\t\t\tCette règle permet de calculer instantanément le nombre $10^{-m}$.
+\t\t\t\vspace{-0.7cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t$10^{-1}=0,\underbrace{1}_{1\text{ chiffre}}\ \ ;\ \ 
+\t\t\t10^{-2}=0,\underbrace{01}_{2\text{ chiffres}}\ \ ;\ \ 
+\t\t\t10^{-4}=0,\underbrace{0001}_{4\text{ chiffres}}\ \ ;\ \ 
+\t\t\t10^{-6}=0,\underbrace{000001}_{6\text{ chiffres}}$
+\t\t\t\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$3:(Multiplication D\'un Nombre Par $10^m$)}
+\t\t\tPour multiplier un \textbf{nombre décimal} par $10^m$, il suffit de \textbf{décaler} sa virgule de $m$ chiffres vers \textbf{la droite} et à la fin de \textbf{la partie décimale}, chaque décalage se traduit par l\'ajout d\'un zéro.\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t$1,562\times10^2=\underbrace{\quad\qquad\qquad156,2\qquad\qquad\quad}_{\text{On a décalé la virgule de 2 chiffres à droite}}$
+\t\t\t
+\t\t\t$0,00025\times10^6=250\ \ ;\ \ 
+\t\t\t12\times10^3=12000$
+\t\t\t\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-11:}}}\par
+\t\tDonner l’écriture décimale de chacun des nombres suivants :
+\t\t
+\t\t$\begin{aligned}
+\t\t\t&x=10^{s}; \\
+\t\t\t&y=10^{-4}; \\
+\t\t\t&z=0{,}038\times10^{5}; \\
+\t\t\t&t=5400\times10^{-3}.
+\t\t\end{aligned}$
+\t\t\\
+\t\t\hline
+\t\t
+\t\t
+\t\t&\t
+\t\t\textbf{\sffamily{Observations sur la séance :}}
+\t\t&	
+\t\t\vspace{-0.5cm}
+\t\t\begin{BoxRafa}[colbacktitle = green]{RÈGLE N$\circ$4:(Multiplication D\'un Nombre Par $10^{-m}$)}
+\t\t\tPour multiplier un \textbf{nombre décimal} par $10^{-m}$, il suffit de \textbf{décaler} sa virgule de $m$ chiffres vers \textbf{la gauche} et en début de \textbf{la partie entière}, chaque décalage se traduit par l\'ajout d\'un zéro.\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Exemples:}
+\t\t\t$154,3\times10^{-2}=\underbrace{\qquad1,543\qquad}_{\text{2 chiffres à gauche}}\ \ ;\ \ 
+\t\t\t$0,25\times10^{2}=25\ \ ;\ \ 
+\t\t\t15\times10^{-2}=0,00015$
+\t\t\t\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t\textcolor{Green}{\uline{\sffamily \textbf{1- Écriture scientifique d’un nombre décimal} }}\par Un des objectifs de ce chapitre est de savoir mettre un nombre décimal positif en écriture scientifique.\vspace*{-.1cm}
+\t\t\begin{BoxRafa}[colbacktitle = green]{THÉORÈME :}
+\t\t\tTout nombre décimal positif $x$ peut s’écrire de façon unique sous la forme:
+\t\t\t\tcbhighmath[boxrule=0.4pt,colframe=red,drop fuzzy shadow=red]{ x = a\times10^m }. Où $m$ est un entier et $a$ un nombre décimal tel que $1\leq a<10$:
+\t\t\t\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t\begin{BoxRafa}[colbacktitle = green]{DÉFINITION :}
+\t\t\tL\'écriture $\mathbf{x=a\times10^{m}}$ s\'appelle \textbf{écriture scientifique} du nombre x.
+\t\t\t\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t\begin{BoxRafa}[colbacktitle = Orange]{Remarque Fondamentale:}
+\t\t\tL\'écriture scientifique ne doit comporter \underline{qu\'un seul chiffre non nul} \underline{(c\'est-à-dire pas zéro) avant la virgule}.
+\t\t\tDonc il y a une seule position possible pour la virgule (\underline{après le premier chiffre différent de zéro en} \underline{partant de la gauche}).
+\t\t\t
+\t\t\t\textbf{\faHandPointRight[regular]} \underline{\textbf{Positionnement de la virgule}}
+\t\t\t
+\t\t\t$\blacksquare$ \textbf{Pour mettre 0.0345 en écriture scientifique, on doit positionner la virgule juste après le 3 ;}
+\t\t\t
+\t\t\t$\blacksquare$ \textbf{Pour mettre 254 en écriture scientifique, on doit positionner la virgule juste après le 2.}
+\t\t\t\vspace{-0.2cm}
+\t\t\end{BoxRafa}
+\t\t
+\t\t&
+\t\t\colorbox{yellow!50!white}{\uline{\sffamily \textbf{Exercice-12:}}}\par
+\t\tDonner l’écriture scientifique des expressions suivantes :
+\t\t
+\t\t$\begin{aligned}
+\t\t\t&\mathrm{a=2360000~;~b=0,00023} \\
+\t\t\t&c=-659\times10^{5} \\
+\t\t\t&\mathsf{d}=56\times10^{-5}\times0,3\times10^{7} \\
+\t\t\t&\mathrm{e}=2,4\times10^{5}+1,5\times10^{4}
+\t\t\end{aligned}$
+\t\t\\
+\t\t\hline
+\t\t\end{longtable}
+\end{document}
