@@ -20,7 +20,7 @@ SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USERNAME = "mousaid.abdelhamid@gmail.com"  # Replace with your email
 SMTP_PASSWORD = "oben fptc lgbk fhor"  # Replace with your email password
-BASE_URL = "https://mousaid-math.streamlit.app/" # Hardcoded for deployed app
+BASE_URL = "http://localhost:8501"  # Replace with your app's base URL
 
 LATEX_TEMPLATES_DIR = "backend/latex_templates"
 GENERATED_PDFS_DIR = "generated_pdfs"
