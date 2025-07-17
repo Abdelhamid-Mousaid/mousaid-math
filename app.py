@@ -20,7 +20,7 @@ SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USERNAME = "mousaid.abdelhamid@gmail.com"  # Replace with your email
 SMTP_PASSWORD = "oben fptc lgbk fhor"  # Replace with your email password
-BASE_URL = "http://localhost:8501"  # Replace with your app's base URL
+BASE_URL = "https://mousaid-math.streamlit.app/" # Hardcoded for deployed app
 
 LATEX_TEMPLATES_DIR = "backend/latex_templates"
 GENERATED_PDFS_DIR = "generated_pdfs"
@@ -65,55 +65,23 @@ def generate_pdf(data, template_path, output_filename):
     with open(tex_file_path, "w", encoding="utf-8") as f:
         f.write(rendered_latex)
 
-    st.info("Step 3: Preparing Docker command...")
-    pdf_file_path = os.path.join(GENERATED_PDFS_DIR, output_filename + ".pdf")
-    
-    # Ensure paths are correctly formatted for Docker on Windows
-    abs_generated_pdfs_dir = os.path.abspath(GENERATED_PDFS_DIR).replace("\\", "/")
-    abs_latex_templates_dir = os.path.abspath(LATEX_TEMPLATES_DIR).replace("\\", "/")
-
-    docker_command = [
-        "docker", "run", "--rm",
-        "-v", f"{abs_generated_pdfs_dir}:/app/data",
-        "-v", f"{abs_latex_templates_dir}:/app/templates",
-        "--network=none", # Isolate network for security
-        "--memory=256m", # Limit memory usage
-        "--cpus=0.5", # Limit CPU usage
-        "xelatex-compiler", # Corrected image name
-        "xelatex",
-        "-output-directory=/app/data",
-        f"/app/data/{output_filename}.tex"
-    ]
-
-    st.info(f"Step 4: Running Docker command: {' '.join(docker_command)}")
-    try:
-        result = subprocess.run(docker_command, capture_output=True, text=True, check=True)
-        st.success("PDF generated successfully!")
-        st.code(f"Stdout: {result.stdout}")
-        st.code(f"Stderr: {result.stderr}")
-        return pdf_file_path
-    except subprocess.CalledProcessError as e:
-        st.error(f"Error generating PDF: {e}")
-        st.code(f"Stdout: {e.stdout}")
-        st.code(f"Stderr: {e.stderr}")
-        return None
-    except FileNotFoundError:
-        st.error("Docker command not found. Please ensure Docker is installed and running.")
-        return None
+    st.error("PDF generation is not available in this deployed environment.")
+    st.info("To enable PDF generation, you need a separate LaTeX compilation service (e.g., a dedicated server running Docker with XeLaTeX, or a cloud-based LaTeX API).")
+    return None
 
 
 def escape_latex(text):
     # Basic LaTeX escaping (can be expanded)
-    text = text.replace("&", "\\&")
-    text = text.replace("%", "\\%")
-    text = text.replace("$", "\\$")
-    text = text.replace("#", "\\#")
-    text = text.replace("_", "\\_")
-    text = text.replace("{", "\\{")
-    text = text.replace("}", "\\}")
-    text = text.replace("~", "\\textasciitilde{}")
-    text = text.replace("^", "\\textasciicircum{}")
-    text = text.replace("\\", "\\textbackslash{}")
+    text = text.replace("&", "\&")
+    text = text.replace("%", "\%")
+    text = text.replace("$", "\$")
+    text = text.replace("#", "\#")
+    text = text.replace("_", "\_")
+    text = text.replace("{", "\{")
+    text = text.replace("}", "\}")
+    text = text.replace("~", "\textasciitilde{}")
+    text = text.replace("^", "\textasciicircum{}")
+    text = text.replace("\\", "\textbackslash{}")
     return text
 
 # --- Streamlit App ---
@@ -159,8 +127,6 @@ def generate_free_pdf_interface(selected_level):
                 st.rerun() # Rerun to show the download button
                 
                 
-
-
 
 
 
@@ -265,10 +231,18 @@ def show_dashboard():
                 if st.button(f"Générer PDF pour {plan_name}", key=f"generate_{plan_name}"):
                     generate_paid_pdf_interface(plan_name, selected_levels)
 
+            if st.button(f"Générer PDF pour {plan_name}", key=f"generate_{plan_name}"):
+                    st.info(f"PDF generation for {plan_name} is not yet implemented.")
+
             else:
                 buy_button_html = f"<a href='{gumroad_urls[plan_name]}' class='gumroad-button'>Acheter maintenant</a>"
                 st.markdown(buy_button_html, unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
+
+def generate_paid_pdf_interface(plan_name, selected_levels):
+    st.subheader(f"Générer le PDF Payant pour {plan_name}")
+    st.write(f"Selected levels: {', '.join(selected_levels)}")
+    st.info("This feature is under development. PDF generation for paid plans will be available soon!")
 
 def show_landing_page():
     st.markdown("<div class='container'>", unsafe_allow_html=True)
