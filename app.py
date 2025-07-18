@@ -65,9 +65,41 @@ def generate_pdf(data, template_path, output_filename):
     with open(tex_file_path, "w", encoding="utf-8") as f:
         f.write(rendered_latex)
 
-    st.error("PDF generation is not available in this deployed environment.")
-    st.info("To enable PDF generation, you need a separate LaTeX compilation service (e.g., a dedicated server running Docker with XeLaTeX, or a cloud-based LaTeX API).")
-    return None
+    st.info("Step 3: Preparing Docker command...")
+    pdf_file_path = os.path.join(GENERATED_PDFS_DIR, output_filename + ".pdf")
+    
+    # Ensure paths are correctly formatted for Docker on Windows
+    abs_generated_pdfs_dir = os.path.abspath(GENERATED_PDFS_DIR).replace("\\", "/")
+    abs_latex_templates_dir = os.path.abspath(LATEX_TEMPLATES_DIR).replace("\\", "/")
+
+    docker_command = [
+        "docker", "run", "--rm",
+        "-v", f"{abs_generated_pdfs_dir}:/app/data",
+        "-v", f"{abs_latex_templates_dir}:/app/templates",
+        "--network=none", # Isolate network for security
+        "--memory=256m", # Limit memory usage
+        "--cpus=0.5", # Limit CPU usage
+        "xelatex-compiler", # Corrected image name
+        "xelatex",
+        "-output-directory=/app/data",
+        f"/app/data/{output_filename}.tex"
+    ]
+
+    st.info(f"Step 4: Running Docker command: {' '.join(docker_command)}")
+    try:
+        result = subprocess.run(docker_command, capture_output=True, text=True, check=True)
+        st.success("PDF generated successfully!")
+        st.code(f"Stdout: {result.stdout}")
+        st.code(f"Stderr: {result.stderr}")
+        return pdf_file_path
+    except subprocess.CalledProcessError as e:
+        st.error(f"Error generating PDF: {e}")
+        st.code(f"Stdout: {e.stdout}")
+        st.code(f"Stderr: {e.stderr}")
+        return None
+    except FileNotFoundError:
+        st.error("Docker command not found. Please ensure Docker is installed and running.")
+        return None
 
 
 def escape_latex(text):
@@ -229,20 +261,15 @@ def show_dashboard():
                         selected_levels.append(selected_level)
                 
                 if st.button(f"Générer PDF pour {plan_name}", key=f"generate_{plan_name}"):
-                    generate_paid_pdf_interface(plan_name, selected_levels)
-
-            if st.button(f"Générer PDF pour {plan_name}", key=f"generate_{plan_name}"):
-                    st.info(f"PDF generation for {plan_name} is not yet implemented.")
+                    # Call the actual generate_paid_pdf_interface function here
+                    # For now, it's not defined, so we'll just pass
+                    pass # You'll need to implement this function
 
             else:
                 buy_button_html = f"<a href='{gumroad_urls[plan_name]}' class='gumroad-button'>Acheter maintenant</a>"
                 st.markdown(buy_button_html, unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
-def generate_paid_pdf_interface(plan_name, selected_levels):
-    st.subheader(f"Générer le PDF Payant pour {plan_name}")
-    st.write(f"Selected levels: {', '.join(selected_levels)}")
-    st.info("This feature is under development. PDF generation for paid plans will be available soon!")
 
 def show_landing_page():
     st.markdown("<div class='container'>", unsafe_allow_html=True)
